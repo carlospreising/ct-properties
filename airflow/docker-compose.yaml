@@ -131,6 +131,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    environment:
+      AIRFLOW__API__WORKERS: '1'
 
   airflow-scheduler:
     <<: *airflow-common
