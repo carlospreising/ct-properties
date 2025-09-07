@@ -62,8 +62,8 @@ def load_city(city='newhaven', base_url=None, pid_min=None, pid_max=None, null_p
     appraisal_list = []
     ownership_list = []
 
-    city_json = open_vgsi_cities()
     if not base_url:
+        city_json = open_vgsi_cities()
         vgsi_url = city_json[city]['url']
     else:
         vgsi_url = base_url
