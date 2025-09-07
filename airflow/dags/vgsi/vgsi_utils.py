@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup
 from .vgsi_objects import Property, InvalidPIDException
 
 _VGSIURL_ = "https://www.vgsi.com/connecticut-online-database/"
-_VSGIPATH_ = "vgsi_cities.json"
 
 def open_vgsi_cities(state='ct'):
     path = f"vgsi_cities_{state}.json"

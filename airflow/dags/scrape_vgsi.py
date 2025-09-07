@@ -154,4 +154,4 @@ with DAG(
         create_disposition='CREATE_IF_NEEDED',
     )
 
-    download_data_task >> local_to_gcs_task >> [load_building_bq, load_assesments_bq, load_appraisals_bq, load_ownership_bq]
+    download_data_task >> local_to_gcs_task >> [load_property_bq, load_building_bq, load_assesments_bq, load_appraisals_bq, load_ownership_bq]
