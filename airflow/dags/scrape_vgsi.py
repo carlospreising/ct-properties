@@ -144,7 +144,7 @@ with DAG(
     )
 
     load_ownership_bq = GCSToBigQueryOperator(
-        task_id="load_appraisals_bq",
+        task_id="load_ownership_bq",
         bucket=BUCKET_NAME,
         source_objects = [f"raw/parquet/ownership/{RUN_DATE}_new_haven.parquet"],
         source_format='PARQUET',
@@ -154,4 +154,4 @@ with DAG(
         create_disposition='CREATE_IF_NEEDED',
     )
 
-    download_data_task >> local_to_gcs_task >> local_to_gcs_task >> [load_building_bq, load_assesments_bq, load_appraisals_bq, load_ownership_bq]
+    download_data_task >> local_to_gcs_task >> [load_building_bq, load_assesments_bq, load_appraisals_bq, load_ownership_bq]
