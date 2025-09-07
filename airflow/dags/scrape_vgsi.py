@@ -69,7 +69,7 @@ afw_default_args = {
 
 with DAG(
     dag_id="scrape_vgsi",
-    schedule_interval=timedelta(days=7),
+    schedule='@weekly',
     default_args= afw_default_args,
     max_active_runs=1,
     catchup = False,
