@@ -1,0 +1,44 @@
+# Allow .env file for environment variables (optional)
+.env
+ 
+# Python virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Poetry and virtual environment directories
+poetry.lock
+venv/
+.venv/
+env/
+venv3/
+env3/
+.vscode/
+ 
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+*.tfplan
+*.tflint.hcl
+*.terraformrc
+.terraform/
+terraform/.terraform/
+$~/
+ 
+# DBT configuration and logs
+target/
+models/.dbt/
+logs/dbt.log
+logs/dbt_profiles.yml
+ 
+# Airflow directories and files
+airflow/dags/__pycache__/
+airflow/logs/
+airflow/plugins/
+airflow/versions.cfg
+airflow/config.py
+airflow/local_settings.py
+ 
+# OS-specific files
+.DS_Store
+Thumbs.db
