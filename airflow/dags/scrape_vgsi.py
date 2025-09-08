@@ -36,7 +36,7 @@ RUN_DATE = datetime.today().strftime('%Y-%m-%d')
 # PARQUET_FILENAME = DATASET_FILE.replace('.json', '.parquet')
 
 def download_city(city, output_parquet_file):
-    property_df, building_df, assesment_df, appraisal_df, ownership_df = load_city(city, base_url='https://gis.vgsi.com/newhavenct/', delay_seconds=0)
+    property_df, building_df, assesment_df, appraisal_df, ownership_df = load_city(city, base_url='https://gis.vgsi.com/newhavenct/',pid_max=100, delay_seconds=0)
 
     property_df.to_parquet(output_parquet_file + f"_{city}_property.parquet", index=False)
     building_df.to_parquet(output_parquet_file + f"_{city}_building.parquet", index=False)

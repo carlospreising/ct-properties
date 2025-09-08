@@ -293,7 +293,7 @@ class Property(Base):
 
     def add_building(self, bid):
 
-        sys.stdout.write(f'Adding building {bid} to property {self.pid}. \n')
+        # sys.stdout.write(f'Adding building {bid} to property {self.pid}. \n')s
         building = Building(
             pid=self.pid, 
             property_uuid=self.uuid, 
@@ -302,11 +302,11 @@ class Property(Base):
             table_tag=self.building_table_tag
         )
 
-        self.buildings.append(building)
+        self.buildings.append(building.data)
 
     def add_ownership(self, row):
 
-        sys.stdout.write(f'Adding property ownership to property {self.pid}. \r')
+        # sys.stdout.write(f'Adding property ownership to property {self.pid}. \r')
         owner = Ownership(
             pid=self.pid, 
             property_uuid=self.uuid, 
@@ -315,11 +315,11 @@ class Property(Base):
             table_tag=self.ownership_table_tag
         )
 
-        self.ownership.append(owner)
+        self.ownership.append(owner.data)
     
     def add_assesment(self, row):
 
-        sys.stdout.write(f'Adding property assesments to property {self.pid}. \r')
+        # sys.stdout.write(f'Adding property assesments to property {self.pid}. \r')
         assesment = Appraisal(
             pid=self.pid, 
             property_uuid=self.uuid, 
@@ -328,11 +328,11 @@ class Property(Base):
             table_tag=self.assesment_table_tag
         )
     
-        self.assesments.append(assesment)
+        self.assesments.append(assesment.data)
 
     def add_appraisal(self, row):
 
-        sys.stdout.write(f'Adding appraisals assesments to property {self.pid}. \r')
+        # sys.stdout.write(f'Adding appraisals assesments to property {self.pid}. \r')
         appraisal = Appraisal(
             pid=self.pid, 
             property_uuid=self.uuid, 
@@ -341,7 +341,7 @@ class Property(Base):
             table_tag=self.appraisal_table_tag
         )
 
-        self.appraisals.append(appraisal)
+        self.appraisals.append(appraisal.data)
 
     def load_assesment(self):
         try:
@@ -401,7 +401,7 @@ class Property(Base):
     
     def load_all(self):
 
-        sys.stdout.write(f'Adding all subclasses to property {self.pid}. \r')
+        # sys.stdout.write(f'Adding all subclasses to property {self.pid}. \r')
         try:
             self.load_buildings()
         except:

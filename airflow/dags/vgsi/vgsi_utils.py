@@ -55,7 +55,7 @@ def get_vgsi_cities(url=_VGSIURL_, state='ct'):
         json.dump(city_dict, outfile, indent=4)
     sys.stdout.write(f"Loaded {json_path}.")
 
-def load_city(city='newhaven', base_url=None, pid_min=None, pid_max=None, null_pages_seq=10, delay_seconds=1):
+def load_city(city='newhaven', base_url=None, pid_min=1, pid_max=1000000, null_pages_seq=10, delay_seconds=1):
     property_list = []
     building_list = []
     assesment_list = []
@@ -68,42 +68,40 @@ def load_city(city='newhaven', base_url=None, pid_min=None, pid_max=None, null_p
     else:
         vgsi_url = base_url
 
-    if pid_min and pid_max:
-        for i in range (pid_min, pid_max+1):
-            try:
-                p = Property(url=vgsi_url, pid=i)
-                property_list.append(p.data)
-                building_list.extend(p.buildings)
-                assesment_list.extend(p.assesments)
-                appraisal_list.extend(p.appraisals)
-                ownership_list.extend(p.ownership)
-            except InvalidPIDException:
-                pass
-    else:
-        pid = 1
-        null_page_cnt = 0
+    # if pid_min and pid_max:
+    #     for i in range (pid_min, pid_max+1):
+    #         try:
+    #             p = Property(url=vgsi_url, pid=i)
+    #             property_list.append(p.data)
+    #             building_list.extend(p.buildings)
+    #             assesment_list.extend(p.assesments)
+    #             appraisal_list.extend(p.appraisals)
+    #             ownership_list.extend(p.ownership)
+    #         except InvalidPIDException:
+    #             pass
+    # else:
+    null_page_cnt = 0
 
-        while null_page_cnt < null_pages_seq:
-            print(f"Trying property id {pid} for city {city}")
-            try:
-                p = Property(url=vgsi_url, pid=pid)
-                p.load_all()
-                property_list.append(p.data)
-                building_list.extend(p.buildings)
-                assesment_list.extend(p.assesments)
-                appraisal_list.extend(p.appraisals)
-                ownership_list.extend(p.ownership)
-                null_page_cnt = 0
-                time.sleep(delay_seconds)
-            except:
-                null_page_cnt += 1
-            
-            pid += 1
-        
-        property_df = pd.DataFrame(property_list)
-        building_df = pd.DataFrame(building_list)
-        assesment_df = pd.DataFrame(assesment_list)
-        appraisal_df = pd.DataFrame(appraisal_list)
-        ownership_df = pd.DataFrame(ownership_list)
+    while null_page_cnt < null_pages_seq and pid_min <= pid_max:
+        # print(f"Trying property id {pid_min} for city {city}")
+        try:
+            p = Property(url=vgsi_url, pid=pid_min)
+            p.load_all()
+            property_list.append(p.data)
+            building_list.extend(p.buildings)
+            assesment_list.extend(p.assesments)
+            appraisal_list.extend(p.appraisals)
+            ownership_list.extend(p.ownership)
+            null_page_cnt = 0
+            time.sleep(delay_seconds)
+        except:
+            null_page_cnt += 1
+        pid_min += 1
+    
+    property_df = pd.DataFrame(property_list)
+    building_df = pd.DataFrame(building_list)
+    assesment_df = pd.DataFrame(assesment_list)
+    appraisal_df = pd.DataFrame(appraisal_list)
+    ownership_df = pd.DataFrame(ownership_list)
 
-        return property_df, building_df, assesment_df, appraisal_df, ownership_df
+    return property_df, building_df, assesment_df, appraisal_df, ownership_df
